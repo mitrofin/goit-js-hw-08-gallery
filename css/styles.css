@@ -137,4 +137,5 @@ body {
 .lightbox__button:hover,
 .lightbox__button:focus {
   background-color: rgba(0, 0, 0, 0.5);
+  transform: scale(1.2);
 }
