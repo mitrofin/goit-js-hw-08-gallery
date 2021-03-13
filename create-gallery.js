@@ -1,5 +1,5 @@
 import imageGallery from "./gallery-items.js"
-/* console.log(imageGallery); */
+import { createImagesGallary }  from './create-image-item.js';
 const refs = {
   containerImages: document.querySelector('.js-gallery'),
   lightbox: document.querySelector('.lightbox'),
@@ -8,8 +8,7 @@ const refs = {
   closeModalForClickToOverlay:document.querySelector('.lightbox__overlay'),
 };
 
-
-const createImageGalleryMarcup = arrays =>
+/* const createImageGalleryMarcup = arrays =>
      arrays.map(({ preview, original, description }, index) => {
             return `<li class="gallery__item">
               <a class="gallery__link"
@@ -23,15 +22,15 @@ const createImageGalleryMarcup = arrays =>
             </li>`;
         }
         )
-        .join('');
+        .join(''); */
  
-/* console.log(createImageGalleryMarcup(imageGallery)); */
-refs.containerImages.insertAdjacentHTML("beforeend",(createImageGalleryMarcup(imageGallery)))
+const makeItemsGallery = imageGallery.map(createImagesGallary).join('');
+refs.containerImages.insertAdjacentHTML("beforeend", makeItemsGallery);
 
 
 const onClick = evt => {
   window.addEventListener('keydown', (evt) => {
-    /* console.log(evt.code); */
+  
     if (evt.code === "Escape") {
     onCloseModal()
     }
@@ -41,7 +40,7 @@ const onClick = evt => {
   if (evt.code === "ArrowRight") {
     arrowRight()
   }
-  }/* onCloseToEsc */);
+  });
   evt.preventDefault();
   if (evt.target.nodeName !== 'IMG') {
     return;
@@ -54,9 +53,7 @@ const onClick = evt => {
 refs.containerImages.addEventListener('click', onClick);
 
 const onCloseModal = evt => {
- /*  if (evt.target.nodeName === 'IMG') {
-    return;
-  } */
+ 
   refs.lightbox.classList.remove("is-open");
   refs.openModal.removeAttribute('src');
   refs.openModal.removeAttribute('alt');
@@ -64,13 +61,7 @@ const onCloseModal = evt => {
 refs.closeModal.addEventListener('click', onCloseModal);
 refs.closeModalForClickToOverlay.addEventListener('click', onCloseModal);
 
-/* const onCloseToEsc = evt => { 
-  if (evt.code === "Escape") {
-    onCloseModal()
-  }
-
-}; */
-function setNewSrc(step, index) {
+function changeSrc(step, index) {
   refs.openModal.dataset.index = `${index + step}`
   refs.openModal.src = imageGallery[index + step].original
 }
@@ -78,17 +69,17 @@ function setNewSrc(step, index) {
 function arrowLeft() {
   let i = Number(refs.openModal.dataset.index)
   if (i === 0) {
-    setNewSrc(0, imageGallery.length - 1)
+    changeSrc(0, imageGallery.length - 1)
     return
   }
-  setNewSrc(-1, i)
+  changeSrc(-1, i)
 }
 
 function arrowRight() {
   let i = +refs.openModal.dataset.index
   if (i === imageGallery.length - 1) {
-    setNewSrc(0, 0)
+    changeSrc(0, 0)
     return
   }
-  setNewSrc(1, i)
+  changeSrc(1, i)
 }
