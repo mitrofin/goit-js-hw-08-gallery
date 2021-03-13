@@ -1,6 +1,6 @@
 
- const createImagesGallary = ({ preview, original, description },index) => {
-  return `<li class="gallery__item">
+ const createImagesGallary = ({ preview, original, description },index) => 
+ `<li class="gallery__item">
     <a class="gallery__link"
         href="${original}">
         <img class="gallery__image"
@@ -10,6 +10,6 @@
         data-index="${index}"/>
     </a>
   </li>`;
-};
+
 
 export { createImagesGallary };

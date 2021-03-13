@@ -57,6 +57,9 @@ const onCloseModal = evt => {
   refs.lightbox.classList.remove("is-open");
   refs.openModal.removeAttribute('src');
   refs.openModal.removeAttribute('alt');
+  window.removeEventListener('keydown',(evt));
+
+
  };
 refs.closeModal.addEventListener('click', onCloseModal);
 refs.closeModalForClickToOverlay.addEventListener('click', onCloseModal);
